@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hono-backend
+    ports:
+      - "3001:3000"
+    environment:
+      - MONGO_URI=mongodb://mongo1:27017,mongo2:27017,mongo3:27017/mydb?replicaSet=rs0
+    networks:
+      - master-slave-pattern_mongo-cluster
+
+networks:
+  master-slave-pattern_mongo-cluster:
+    external: true
